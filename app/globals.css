@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/* Class-based dark mode (toggled on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Map Tailwind color utilities to runtime CSS vars so they switch with theme.
+   `inline` means utilities reference the var() directly (responds at runtime). */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Light theme (default) */
+:root {
+  --bg: #eef2f8;
+  --surface: #ffffff;
+  --fg: #0f172a;
+  --muted: #51607a;
+  --border: #d4dbe6;
+  --accent: #0d9488;
+  --accent-2: #0369a1;
+  color-scheme: light;
+}
+
+/* Dark theme */
+.dark {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --fg: #e5e7eb;
+  --muted: #9ca3af;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #2dd4bf;
+  --accent-2: #38bdf8;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Subtle radial glow backdrop */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60rem 40rem at 75% -10%, color-mix(in srgb, var(--accent-2) 10%, transparent), transparent 60%),
+    radial-gradient(50rem 40rem at 10% 10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%);
+  pointer-events: none;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* Reveal-on-scroll animation */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.in-view {
+  animation: fade-up 0.7s ease-out forwards;
+}
+
+/* Animated gradient text (name) */
+@keyframes gradient-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-pan 6s ease infinite;
+}
+
+/* Gentle floating (profile image) */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Blinking caret (typewriter) */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  margin-left: 2px;
+  background-color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+/* Bouncing scroll indicator */
+@keyframes bounce-down {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+.scroll-indicator {
+  animation: bounce-down 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-text,
+  .float,
+  .caret,
+  .scroll-indicator,
+  .reveal.in-view {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+  }
+}
