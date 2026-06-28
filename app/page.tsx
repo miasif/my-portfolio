@@ -35,7 +35,7 @@ export default function Home() {
       <Navbar />
       <main id="top" className="mx-auto max-w-5xl px-6">
         {/* Hero */}
-        <section className="relative grid min-h-screen items-center gap-12 pt-20 lg:grid-cols-[7fr_3fr]">
+        <section className="relative grid min-h-screen items-center gap-12 pb-28 pt-28 sm:pb-20 lg:grid-cols-[7fr_3fr] lg:pb-0 lg:pt-20">
           <Reveal>
             <p className="mb-4 font-mono text-sm text-accent">Hi, my name is</p>
             <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
@@ -82,21 +82,23 @@ export default function Home() {
               ))}
             </dl>
 
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href="#projects"
-                className="rounded-md border border-accent/40 px-6 py-3 text-sm font-medium text-accent transition-all hover:bg-accent/10"
-              >
-                View my work
-              </a>
-              <a
-                href={profile.resume}
-                download
-                className="rounded-md px-6 py-3 text-sm font-medium text-muted transition-colors hover:text-accent"
-              >
-                Download CV ↓
-              </a>
-              <SocialIcons className="ml-2" />
+            <div className="mt-10 flex flex-col gap-6">
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  href="#projects"
+                  className="rounded-md border border-accent/40 px-6 py-3 text-sm font-medium text-accent transition-all hover:bg-accent/10"
+                >
+                  View my work
+                </a>
+                <a
+                  href={profile.resume}
+                  download
+                  className="rounded-md border border-border px-6 py-3 text-sm font-medium text-muted transition-colors hover:border-accent/40 hover:text-accent"
+                >
+                  Download CV ↓
+                </a>
+              </div>
+              <SocialIcons />
             </div>
           </Reveal>
 
@@ -108,7 +110,7 @@ export default function Home() {
           <a
             href="#about"
             aria-label="Scroll to about"
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 text-muted transition-colors hover:text-accent"
+            className="absolute bottom-10 left-1/2 hidden -translate-x-1/2 text-muted transition-colors hover:text-accent lg:block"
           >
             <svg
               className="scroll-indicator h-6 w-6"
@@ -132,10 +134,10 @@ export default function Home() {
             <SectionTitle kicker="01 — About" title="A bit about me" />
             <div className="grid items-start gap-10 md:grid-cols-[1fr_auto]">
               <div>
-                <p className="text-justify text-lg leading-relaxed text-muted">
+                <p className="text-left text-lg leading-relaxed text-muted md:text-justify">
                   {profile.summary}
                 </p>
-                <p className="mt-6 text-justify text-lg leading-relaxed text-muted">
+                <p className="mt-6 text-left text-lg leading-relaxed text-muted md:text-justify">
                   I&apos;m comfortable across the stack but spend most of my time in
                   the backend — designing schemas, optimising queries, hardening
                   security, and keeping production systems healthy. I value robust,
